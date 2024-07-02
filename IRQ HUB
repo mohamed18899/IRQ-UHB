@@ -1,0 +1,69 @@
+-- النص المطلوب
+local requiredText = "IRQ HUB"
+
+-- إنشاء عنصر ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "WelcomeGui"
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- إنشاء عنصر TextLabel
+local textLabel = Instance.new("TextLabel")
+textLabel.Parent = screenGui
+textLabel.Text = "سكربت الغاء التخريب تابع الى IRQ HUB"
+textLabel.Size = UDim2.new(0.5, 0, 0.1, 0)  -- العرض نصف الشاشة والارتفاع 10% من الشاشة
+textLabel.Position = UDim2.new(0.25, 0, 0, 0)  -- أعلى الشاشة
+textLabel.BackgroundTransparency = 0  -- جعل الخلفية غير شفافة
+textLabel.BackgroundColor3 = Color3.fromRGB(77,88,99)  -- لون الخلفية أزرق
+textLabel.TextScaled = true  -- جعل النص يتناسب تلقائيًا مع حجم التسمية
+textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)  -- لون النص
+textLabel.Font = Enum.Font.SourceSansBold  -- خط النص
+
+-- جعل الحدود دائرية
+local corner = Instance.new("UICorner")
+corner.Parent = textLabel
+corner.CornerRadius = UDim.new(0.5, 0)  -- نسبة دائرية للحدود
+
+-- إنشاء عنصر TextBox
+local textBox = Instance.new("TextBox")
+textBox.Parent = screenGui
+textBox.Size = UDim2.new(0.3, 0, 0.1, 0)  -- العرض 30% من الشاشة والارتفاع 10% من الشاشة
+textBox.Position = UDim2.new(0.35, 0, 0.45, 0)  -- في منتصف الشاشة
+textBox.BackgroundTransparency = 0  -- جعل الخلفية غير شفافة
+textBox.BackgroundColor3 = Color3.fromRGB(169, 169, 169)  -- لون الخلفية رمادي
+textBox.TextColor3 = Color3.fromRGB(0, 0, 0)  -- لون النص أسود
+textBox.PlaceholderText = "حط المفتاح هنا"
+textBox.TextScaled = true  -- جعل النص يتناسب تلقائيًا مع حجم المربع
+textBox.Font = Enum.Font.SourceSans  -- خط النص
+
+-- جعل الحدود دائرية لمربع النص
+local textBoxCorner = Instance.new("UICorner")
+textBoxCorner.Parent = textBox
+textBoxCorner.CornerRadius = UDim.new(0.2, 0)  -- نسبة دائرية للحدود
+
+-- دالة للتحقق من النص المدخل
+local function checkText(inputText)
+    return inputText == requiredText
+end
+
+-- عند إدخال النص في TextBox
+textBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        if checkText(textBox.Text) then
+            -- إخفاء TextBox وعرض TextLabel
+            textBox.Visible = false
+            textLabel.Visible = true
+            
+            -- إخفاء الرسالة بعد 3 ثواني
+            delay(7, function()
+                screenGui:Destroy()
+            end)
+            
+            -- تشغيل السكربت الإضافي
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Freeze%20Tool%20Obfuscator'))()
+        else
+            -- إعادة تعيين TextBox إذا كان النص غير صحيح
+            textBox.Text = ""
+            textBox.PlaceholderText = "خطا المفتاح موجود في سكربت IRQ HUB"
+        end
+    end
+end)
