@@ -1,5 +1,5 @@
 -- النص المطلوب
-local requiredText  "Ij"
+local requiredText = "IRQ HUB"
 
 -- إنشاء عنصر ScreenGui
 local screenGui = Instance.new("ScreenGui")
